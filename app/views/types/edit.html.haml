@@ -1,0 +1,7 @@
+- content_for :page_header do
+  %h1 Editing type
+
+= render 'form'
+
+= link_to 'Show', @type, :class => "btn btn-primary"
+= link_to 'Back', types_path, :class => "btn btn-primary"

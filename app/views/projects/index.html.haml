@@ -1,0 +1,122 @@
+- content_for :page_header do
+  %h1 Projects
+= link_to 'New Project', new_project_path, :class => "btn btn-primary"
+= link_to 'New Todo', new_todo_path, :class => "btn btn-primary"
+- if params[:current_activity].nil?
+  = link_to 'Current', projects_path(:current_activity => "yes"), :class => "btn btn-warning"
+- else
+  = link_to 'All', projects_path, :class => "btn btn-warning"
+%br
+%br
+
+%table{:class => "table table-striped table-bordered table-condensed", :id => "sortableTable"}
+  %thead
+    %tr
+      %th{:class => "header blue", :style => "width:480px"}= " Name"
+      %th{:class => "header purple", :style => "width:200px"}= " Elapsed"
+      %th{:class => "header purple", :style => "width:200px"}= " Estimated"
+      %th{:class => "header green", :style => "width:100px"}= " Tasks"
+      %th{:class => "header yellow", :style => "width:100px"}= " Progression"
+      %th{:style => "width:10px"}
+      %th{:style => "width:10px"}
+      %th{:style => "width:10px"}
+      %th{:style => "width:10px"}
+  %tbody
+    - @projects.each do |project|
+      - if params[:current_activity].nil? || (!params[:current_activity].nil? && @projects_tasks_total[project.id] - @projects_tasks_done[project.id] - @projects_tasks_not_started[project.id] != 0)
+        %tr
+          - class_btn_tasks = @projects_tasks_done[project.id] < (@projects_tasks_total[project.id].to_f / 2) || @projects_tasks_done[project.id] == 0 ? "btn btn-warning btn-mini" : "btn btn-success btn-mini"
+          %td
+            %div{:style => "display:none;"}= "#{@projects_tasks_total[project.id] - @projects_tasks_done[project.id] - @projects_tasks_not_started[project.id]};"
+            = link_to project.name, todos_path(:filter_project => project.id)
+            - if @projects_tasks_total[project.id] != @projects_tasks_done[project.id] + @projects_tasks_not_started[project.id]
+              %span.badge.badge-important= @projects_tasks_total[project.id] - @projects_tasks_done[project.id] - @projects_tasks_not_started[project.id]
+          %td{:style => "text-align:right; padding-right:30px"}
+            %div{:style => "display:none;"}= "#{@projects_time_total[project.id]};"
+            = "#{distance_of_time_in_words(@projects_time_total[project.id] * 60)} "
+          %td{:style => "text-align:right; padding-right:30px"}
+            %div{:style => "display:none;"}= "#{@projects_estimated_time_total[project.id]};"
+            = "#{distance_of_time_in_words(@projects_estimated_time_total[project.id] * 60)}"
+          %td
+            %div{:style => "display:none;"}= "#{@projects_tasks_total[project.id]};"
+            %span{:class => class_btn_tasks, :style => "width:70px; text-align:center;"}= "#{@projects_tasks_done[project.id]} / #{@projects_tasks_total[project.id]}"
+          -#%td
+            -#%span{:class => class_btn_progression, :style => "width:70px; text-align:center;"}= "#{number_to_percentage(@projects_progression[project.id] * 100, :precision => 2)}"
+          %td
+            %div{:style => "display:none;"}= "#{@projects_progression[project.id] * 100}%"
+            %div{:class => progress_class(@projects_progression[project.id] * 100), :style => "margin-bottom:0px;"}
+              %div{:class => "bar", :style => "width: #{number_to_percentage(@projects_progression[project.id] * 100, :precision => 2)};"}
+          %td= link_to 'Add', new_todo_path(:filter_project => project.id), :class => "btn btn-primary btn-mini"
+          %td= link_to 'Show', project, :class => "btn btn-primary btn-mini"
+          %td= link_to 'Edit', edit_project_path(project), :class => "btn btn-primary btn-mini"
+          %td= link_to 'X', project, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary btn-mini"
+
+= link_to 'New Project', new_project_path, :class => "btn btn-primary"
+= link_to 'New Todo', new_todo_path, :class => "btn btn-primary"
+:javascript
+  $.tablesorter.addParser({
+    // set a unique id
+    id: 'tasks',
+    is: function(s) {
+        // return false so this parser is not auto detected
+        return false;
+    },
+    format: function(s) {
+        // format your data for normalization
+        return s.substring(0, s.indexOf(';'));
+    },
+    // set type, either numeric or text
+    type: 'numeric'
+  });
+  $.tablesorter.addParser({
+    // set a unique id
+    id: 'minutes',
+    is: function(s) {
+        // return false so this parser is not auto detected
+        return false;
+    },
+    format: function(s) {
+        // format your data for normalization
+        return s.substring(0, s.indexOf(';'));
+    },
+    // set type, either numeric or text
+    type: 'numeric'
+  });
+  $.tablesorter.addParser({
+    // set a unique id
+    id: 'progress',
+    is: function(s) {
+      return false;
+    },
+    format: function(s) {
+      return s.substring(0, s.indexOf('%') - 1);
+    },
+    type: 'numeric'
+  });
+  $.tablesorter.addParser({
+    // set a unique id
+    id: 'tasks',
+    is: function(s) {
+      return false;
+    },
+    format: function(s) {
+      return s.substring(0, s.indexOf(';'));
+    },
+    type: 'numeric'
+  });
+  $(function() {
+    $("table#sortableTable").tablesorter({
+      widgets: ["saveSort", "resizable"],
+      headers: {
+        0: {sorter: 'tasks'},
+        1: {sorter: 'minutes'},
+        2: {sorter: 'minutes'},
+        3: {sorter: 'tasks'},
+        4: {sorter: 'progress'},
+        5: {sorter: false},
+        6: {sorter: false},
+        7: {sorter: false},
+        8: {sorter: false}
+      }
+    });
+  });

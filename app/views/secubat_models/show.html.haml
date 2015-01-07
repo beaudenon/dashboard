@@ -1,0 +1,38 @@
+- content_for :page_header do
+  %h1= "Modèle #{@secubat_model.subject} "
+%p#notice= notice
+
+%p
+  %b Sujet:
+  = @secubat_model.subject
+%p
+  %b Corps:
+  = @secubat_model.body
+%p
+  %b Fichier:
+  = @secubat_model.filename
+%p
+  %b Description:
+  = @secubat_model.description
+%p
+  %b Unique?:
+  = @secubat_model.is_unique? ? "Oui" : "Non"
+%p
+  %b Template:
+  - if @secubat_model.template
+    = link_to @secubat_model.template, "/secubat_mailer/" + @secubat_model.template, :class => "btn btn-success btn-mini"
+%p
+  %b Activé?:
+  = @secubat_model.is_activated? ? "Oui" : "Non"
+= link_to 'Modification', edit_secubat_model_path(@secubat_model), :class => "btn btn-primary"
+= link_to 'Retour', secubat_models_path, :class => "btn btn-primary"
+= link_to 'Nouveau', new_secubat_model_path, :class => "btn btn-primary", :class => "btn btn-primary"
+= link_to 'Suppression', @secubat_model, :confirm => 'Confirmer la suppression?', :method => :delete, :class => "btn btn-danger"
+
+.span{:style => "padding-top:20px; padding-right:20px;"}
+  %h3
+    = "Mails envoyés"
+    %a.btn.btn-success{:style => "margin-bottom:5px;", :href => secubat_model_path(@secubat_model)}
+      %i.icon-refresh.icon-white{:style => "margin:3px 0px;"}
+  %table{:class => "table table-striped table-bordered table-condensed", :id => "sortableTableShow"}
+    = render 'table_mailings'

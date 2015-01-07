@@ -1,0 +1,9 @@
+- if !@todo.nil?
+  $("#table_todo_#{@todo.id}").html("#{escape_javascript(render :partial => "todos/todo", :locals => {:todo => @todo})}");
+  $("#stats_todos").html("#{escape_javascript(render 'todos/stats_todos')}");
+  $('.tooltipable').tooltip();
+  $("#sortableTable").trigger("update");
+- else
+  $("#sortableTable").html("#{escape_javascript(render 'todos/table_todos')}");
+  $("#stats_todos").html("#{escape_javascript(render 'todos/stats_todos')}");
+  $("table#sortableTable").tablesorter({});

@@ -1,0 +1,52 @@
+%thead
+  %tr
+    %th{:class => "header purple"}= "#"
+    %th{:class => "header red", :style => "width:500px"}= "Modèle de mail"
+    %th{:class => "header orange", :style => "width:200px"}= "Envoyé le"
+    %th{:class => "header green", :style => "width:200px"}= "Quand"
+    %th{:class => "header blue", :style => "width:200px"}= "Statut"
+    %th{:class => "header yellow", :style => "width:200px"}= "Message d'erreur"
+
+%tbody
+  - @secubat_mailings.each do |secubat_mailing|
+    %tr
+      %td= secubat_mailing.id
+      %td
+        - if !secubat_mailing.secubat_model.nil?
+          - classtemplate = secubat_mailing.secubat_model.is_activated? ? "btn btn-success btn-mini" : "btn btn-danger btn-mini"
+          - if secubat_mailing.secubat_model.is_activated?
+            = link_to "#{secubat_mailing.secubat_model.subject} (#{secubat_mailing.secubat_model.template})", "/secubat_mailer/" + secubat_mailing.secubat_model.template, :class => classtemplate
+          - else
+            = link_to "#{secubat_mailing.secubat_model.subject} (#{secubat_mailing.secubat_model.template}) -> plus activé", "/secubat_mailer/" + secubat_mailing.secubat_model.template, :class => classtemplate
+        - else
+          %span{:style => "padding-left: 10px; font-style: italic; color: grey"}
+            = "n'existe plus..."
+      %td
+        - if !secubat_mailing.sent_at.nil? && secubat_mailing.status == "success"
+          = secubat_mailing.sent_at.to_date
+      %td
+        - if !secubat_mailing.sent_at.nil? && secubat_mailing.status == "success"
+          = facebook_distance_of_time_in_words(secubat_mailing.sent_at)
+      %td
+        - case secubat_mailing.status
+          - when "success" then
+            %p{:class => "text-success"}= "Envoyé avec Succès"
+          - when "pending" then
+            %p{:class => "text-warning"}= "En attente"
+          - else
+            %p{:class => "text-error"}=  "Erreur lors de l'envoi"
+      %td
+        - if !secubat_mailing.last_error.nil?
+          = secubat_mailing.last_error[0..(secubat_mailing.last_error.rindex('---') - 1)]
+          - unless secubat_mailing.last_error.empty?
+            %div{:style => "float:right; padding-left:5px;"}
+              = link_to 'Details', secubat_mailing, :class => "btn btn-warning btn-mini", :title => secubat_mailing.last_error
+
+
+:javascript
+  $(function() {
+    $("table#sortableTableShow").tablesorter({
+      widgets: ["saveSort", "zebra"]
+   });
+  });
+

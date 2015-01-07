@@ -1,0 +1,61 @@
+!!!
+%html
+  %head
+    %title
+      - if request.url.include?("secubat")
+        = "Secubat Admin"
+      - else
+        = "Dashboard"
+    -#%link{ :href => "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css", :rel => "stylesheet" }
+    = stylesheet_link_tag "bootstrap.min.css", :application, :todos
+    = javascript_include_tag 'http://code.jquery.com/jquery-1.5.2.min.js'
+    = javascript_include_tag 'jquery', 'jquery_ujs', 'jquery.tablesorter.js', 'jquery.tablesorter.widgets.js', 'bootstrap-dropdown', 'raphael.2.1.0.min.js', 'justgage.js'
+    = csrf_meta_tags
+
+%body
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container{:style => "width:1200px"}
+        - if request.url.include?("secubat")
+          = link_to "Secubat Admin", root_path, :class => :brand
+        - else
+          = link_to root_path, :class => :brand do
+            %div{:style => "float:left;"}= "Dashboard"
+            - if (ENV['RAILS_ENV'] == 'development')
+              %div{:class => [:brand, :dev]}= "Dev"
+            - else
+              %div{:class => [:brand, :beta]}= "Beta"
+
+          = render "menus"
+          = link_to 'New Todo', new_todo_path, :class => "btn btn-small btn-primary"
+          = form_tag(search_todos_path(:filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "pull-right form-inline", :style => "height:20px;  padding-right:30px") do
+            = text_field_tag "pattern", params[:pattern], :class => "input-small",  :type => "text", :placeholder => "Search"
+            %button.btn.btn-small.btn-warning{ :type => "submit" }
+              = "Search"
+          -# form_for("#", :html => { :class => "pull-right form-inline", :style => "height:20px;  padding-right:30px" }) do |f|
+            = f.text_field "", :class => "input-small",  :type => "text", :placeholder => "Username"
+            = f.text_field "", :class => "input-small",  :type => "password", :placeholder => "Password"
+            %button.btn{:type => "submit"}
+              Sign in
+  .container{:style => "width:1200px"}
+    .content{:style => "width:1180px"}
+      - flash.each do |name, msg|
+        - if msg.is_a?(String)
+          %div{:class => "alert fade in alert-#{name == :notice ? "success" : "error"}", :style => "margin-bottom:30px; margin-top:-10px;"}
+            %a.close{"data-dismiss" => "alert"} ×
+            = content_tag :div, msg, :id => "flash_#{name}"
+      .page-header
+        = yield :page_header
+
+      .row
+        .span20
+          =yield
+    %footer
+      %p
+        ="© #{Time.new.year}"
+
+:javascript
+  if ($("#notice").html() == "") {
+    $(".alert").alert('close');
+  }
+  $(".alert").alert();

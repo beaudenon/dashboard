@@ -1,0 +1,45 @@
+= form_for @secubat_model, :html => {:class => " form-horizontal"} do |f|
+  -if @secubat_model.errors.any?
+    #error_explanation
+      .alert.alert-error
+        %h2= "#{pluralize(@secubat_model.errors.count, "erreur")} :"
+        %ul
+          - @secubat_model.errors.full_messages.each do |msg|
+            %li= msg
+  %fieldset
+    .row
+      .span12
+        .row
+          .span6
+            .control-group
+              %label.control-label= "Sujet du mail"
+              .controls
+                = f.text_field :subject
+            .control-group
+              %label.control-label=  "Corps du mail"
+              .controls
+                = f.text_area :body, :style => "max-height:150px;"
+          .span6
+            .control-group
+              %label.control-label=  "Description"
+              .controls
+                = f.text_area :description, :style => "max-height:50px;"
+            .control-group
+              %label.control-label=  "Unique?"
+              .controls
+                = f.check_box :is_unique
+            .control-group
+              %label.control-label= "Template"
+              .controls
+                = f.select :template, %w[pub voeux2012 voeux2013 voeux2014]
+            .control-group
+              %label.control-label=  "Activé?"
+              .controls
+                = f.check_box :is_activated
+        .row
+          .span12
+            .control-group.small
+              .form-actions
+                = f.submit 'Sauvegarder', :class => "btn btn-primary"
+                = f.submit 'Sauvegarder et Ajouter un nouveau modèle', :class => "btn btn-primary"
+

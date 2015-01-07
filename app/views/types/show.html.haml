@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Nom:
+  = @type.name
+%p
+  %b Position:
+  = @type.position
+%p
+  %b Color:
+  %span{:class => color_class(@type.color)}
+    = @type.name
+
+= link_to 'Back', types_path, :class => "btn btn-primary"
+= link_to 'Edit', edit_type_path(@type), :class => "btn btn-primary"
+= link_to 'New', new_type_path, :class => "btn btn-primary"
+= link_to 'Delete', @type, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary"

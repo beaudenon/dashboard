@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%p{:style => "word-wrap: break-word; max-width:600px;"}
+  %b Url:
+  = link_to @url.url, @url.url
+%p
+  %b Description:
+  = @url.description
+
+= link_to 'Back', urls_path, :class => "btn btn-primary"
+= link_to 'Edit', edit_url_path(@url), :class => "btn btn-primary"
+= link_to 'New', new_url_path, :class => "btn btn-primary"
+= link_to 'Delete', @url, :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary"

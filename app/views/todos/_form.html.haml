@@ -1,0 +1,91 @@
+= form_for @todo, :html => {:class => " form-horizontal"} do |f|
+  %fieldset
+    .row
+      .span12
+        %legend= "Task #{@todo.id}"
+        -if @todo.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@todo.errors.count, "error")} prohibited this todo from being saved:"
+            %ul
+              - @todo.errors.full_messages.each do |msg|
+                %li= msg
+        .row
+          .span6
+            .control-group
+              %label.control-label= "Project"
+              .controls
+                %p= f.collection_select :project_id, Project.all(:include => :todos).sort_by { |u| -u.todos.size }, :id, :name, :selected => !@todo.project.nil? ? @todo.project.id : params[:filter_project]
+            .control-group
+              %label.control-label= "Title"
+              .controls
+                = f.text_area :title, :style => "max-height:100px; max-width:220px;"
+            .control-group
+              %label.control-label= "Status"
+              .controls
+                = f.collection_select :status_id, Status.all(:order => "position ASC"), :id, :name
+            .control-group
+              %label.control-label= :type
+              .controls
+                = f.collection_select :type_id, Type.all(:order => "position ASC"), :id, :name, :include_blank => 'None'
+            .control-group
+              %label.control-label= :difficulty
+              .controls
+                = f.select :difficulty, 1..6
+            .control-group
+              %label.control-label=  :emergency
+              .controls
+                = f.select :emergency, 1..5
+            .control-group
+              %label.control-label=  :archived_at
+              .controls
+                %label{:class => :checkbox}
+                  .input
+                    = f.check_box :archived_at
+          .span6
+            .control-group
+              %label.control-label=  :importance
+              .controls
+                = f.select :importance, 1..5
+            .control-group
+              %label.control-label=  :position
+              .controls
+                = f.select :position, 1..5
+            .control-group
+              %label.control-label=  :url
+              .controls
+                = f.text_field :url
+            .control-group
+              %label.control-label=  :Estimated_time
+              .controls
+                = f.text_field :estimated_time
+            .control-group
+              %label.control-label=  :past_time
+              .controls
+                = f.text_field :past_time
+            .control-group
+              %label.control-label=  :progress
+              .controls
+                = f.text_field :progress
+            .control-group
+              %label.control-label=  :description
+              .controls
+                = f.text_area :description, :style => "max-height:120px; max-width:220px;"
+        .row
+          .span12
+            .control-group.small
+              %label.control-label=  :begin_at
+              .controls
+                = f.date_select :to_begin_at
+            .control-group.small
+              %label.control-label=  :deadline
+              .controls
+                = f.date_select :deadline_at
+
+            = hidden_field "hidden", "filter_status", :value => params[:filter_status] ||= "0"
+            = hidden_field "hidden", "exclude_status", :value => params[:exclude_status] ||= "0"
+            .form-actions
+              = f.submit 'Save', :class => "btn btn-primary"
+              = f.submit 'Save and Insert', :class => "btn btn-primary"
+              = f.submit 'Save and Back to the project', :class => "btn btn-primary"
+              = f.submit 'Save and Previous', :class => "btn btn-primary" unless @todo_previous.nil?
+              = f.submit 'Save and Next', :class => "btn btn-primary" unless @todo_next.nil?

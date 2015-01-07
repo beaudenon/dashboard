@@ -1,0 +1,5 @@
+- title.scan(/\[[[:alpha:] ]+\]/).each do |tag|
+  = link_to search_todos_path(:pattern => "[#{tag[1..tag.length-2]}]", :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "tags" do
+    %span.badge.badge-custom
+      = tag[1..tag.length-2]
+    %br

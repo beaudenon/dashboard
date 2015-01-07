@@ -1,0 +1,59 @@
+!!!
+%html
+  %head
+    %title
+      - if request.url.include?("secubat")
+        = "Secubat Admin"
+      - else
+        = "Dashboard"
+    %link{ :href => "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css", :rel => "stylesheet" }
+    = stylesheet_link_tag :application
+    -#%script{ :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js", :type => "text/javascript" }
+    -#= javascript_include_tag 'jquery_ujs', 'countdown'
+    = javascript_include_tag 'jquery', 'jquery_ujs', 'countdown'
+
+    = csrf_meta_tags
+
+%body
+  .topbar
+    .fill
+      .container
+        = link_to "Dashboard", root_path, :class => :brand
+        -#<a class="brand" href="#">Project name</a>
+        %ul.nav
+          %li.active
+            %a{:href => "/"} Home
+          %li
+            %a{:href => "/weddings"} Wedding Program
+          %li
+            %a{:href => "/todos"} Todo
+        = form_for("#", :html => { :class => "pull-right" }) do |f|
+          = f.text_field "", :class => "input-small",  :type => "text", :placeholder => "Username"
+          = f.text_field "", :class => "input-small",  :type => "password", :placeholder => "Password"
+          %button.btn{ :type => "submit" }
+            Sign in
+
+  .container
+    .content
+      .page-header
+        %h1="Le Mariage des Cocotins"
+        #mydate
+        #mypos
+        %div{:id => "countdown-blog"}
+        %p
+          %a{:href => "#", :class => "btn primary large"} En savoir plus »
+      .row
+        .span10
+          =yield
+        .span4
+          - 1.upto(3) do
+            %p= "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod. "
+    .row
+    %footer
+      %p
+        ="© #{Time.new.year}"
+:javascript
+  initialDigitCheckCountdown(theDiffStringCountdown);
+  setInterval(doCountCountdown, paceCountdown);
+  setInterval(printDateTime, 10);
+

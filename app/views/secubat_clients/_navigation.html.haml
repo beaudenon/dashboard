@@ -1,0 +1,14 @@
+.div{:style => "height:10px"}
+.btn-group
+  - unless @secubat_client_previous.nil?
+    = link_to 'Precédent', send(page.to_sym, :id => @secubat_client_previous.id), :class => "btn btn-primary"
+  - else
+    .input{:class => "btn btn-primary disabled", :type => :button}
+      = "Precédent"
+  = link_to 'Modifier', edit_secubat_client_path(@secubat_client), :class => "btn btn-primary" unless page == "edit_secubat_client_path"
+  = link_to 'Voir', secubat_client_path(@secubat_client), :class => "btn btn-primary" unless page == "secubat_client_path"
+  - unless @secubat_client_next.nil?
+    = link_to 'Suivant', send(page.to_sym, :id => @secubat_client_next.id), :class => "btn btn-primary"
+  - else
+    .input{:class => "btn btn-primary disabled", :type => :button}
+      = "Suivant"

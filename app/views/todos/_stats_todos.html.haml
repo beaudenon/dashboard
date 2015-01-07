@@ -1,0 +1,74 @@
+%div{:style => "float:left; padding:10px; padding-left:0px;"}
+  %span{:class => button_class(@count_todos_done.to_f / @count_todos_total.to_f * 100), :style => "vertical-align:middle; width:50px;"}= "#{@count_todos_done} / #{@count_todos_total}"
+%div{:class => progress_class(@count_todos_done.to_f / @count_todos_total.to_f * 100), :style => "width:260px; float:left; margin:15px; margin-left:5px; margin-right:28px;"}
+  %div{:class => "bar", :style => "width: #{@count_todos_done.to_f / @count_todos_total.to_f * 100}%;"}
+
+%div{:style => "float:left; padding:10px; padding-left:0px;"}
+  %span{:class => button_class(@count_percent_done.to_f / @count_percent_total.to_f * 100), :style => "vertical-align:middle; width:50px;"}= "#{number_to_percentage(@progression_percent * 100, :precision => 2)}"
+%div{:class => progress_class(@count_percent_done.to_f / @count_percent_total.to_f * 100), :style => "width:260px; float:left; margin:15px; margin-left:5px; margin-right:20px;"}
+  %div{:class => "bar", :style => "width: #{@count_percent_done.to_f / @count_percent_total.to_f * 100}%;"}
+
+%div{:style => "position:absolute; right:310px; top 0px; width: 120px; height:100px;"}
+  %div#gauge_tbd
+%div{:style => "position:absolute; right:230px; top 0px; width: 120px; height:100px;"}
+  %div#gauge_urgent
+%div{:style => "position:absolute; right:150px; top 0px; width: 120px; height:100px;"}
+  %div#gauge_started
+%div{:style => "position:absolute; right:70px; top 0px; width: 120px; height:100px;"}
+  %div#gauge_current
+%div{:style => "position:absolute; right:-10px; top 0px; width: 120px; height:100px;"}
+  %div#gauge_done
+
+%div{:style => "clear:both;"}
+
+:javascript
+  var g = new JustGage({
+      id: "gauge_tbd",
+      value: parseInt("#{@count_todos_tbd}"),
+      min: 0,
+      max: parseInt("#{@count_todos_total}"),
+      title: "Not started",
+      relativeGaugeSize: true,
+      donut: true,
+      levelColorsGradient: true
+    });
+  var g = new JustGage({
+        id: "gauge_urgent",
+        value: parseInt("#{@count_todos_urgent}"),
+        min: 0,
+        max: parseInt("#{@count_todos_total}"),
+        title: "Urgent",
+        relativeGaugeSize: true,
+        donut: true,
+        levelColorsGradient: true
+      });
+  var g = new JustGage({
+      id: "gauge_started",
+      value: parseInt("#{@count_todos_started}"),
+      min: 0,
+      max: parseInt("#{@count_todos_total}"),
+      title: "Started",
+      relativeGaugeSize: true,
+      donut: true,
+      levelColorsGradient: true
+    });
+  var g = new JustGage({
+      id: "gauge_current",
+      value: parseInt("#{@count_todos_current}"),
+      min: 0,
+      max: parseInt("#{@count_todos_total}"),
+      title: "Current",
+      relativeGaugeSize: true,
+      donut: true,
+      levelColorsGradient: true
+    });
+  var g = new JustGage({
+    id: "gauge_done",
+    value: parseInt("#{@count_todos_done}"),
+    min: 0,
+    max: parseInt("#{@count_todos_total}"),
+    title: "Done",
+    relativeGaugeSize: true,
+    donut: true,
+    levelColorsGradient: true
+  });

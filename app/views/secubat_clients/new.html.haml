@@ -1,0 +1,8 @@
+- content_for :page_header do
+  %h1 Nouveau Client
+%p#notice= notice
+
+= render 'form'
+
+= link_to 'Retour', secubat_clients_path, :class => "btn btn-primary"
+

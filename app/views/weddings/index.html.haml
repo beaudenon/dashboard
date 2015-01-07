@@ -1,0 +1,30 @@
+%h1 Listing weddings
+%p#notice= notice
+
+%table{:class => "zebra-striped"}
+  %tr
+    %th Titre
+    %th Description
+    %th Lieu
+    %th Date
+    %th Duree
+    %th Personne
+    %th
+    %th
+    %th
+
+  - @weddings.each do |wedding|
+    %tr
+      %td= wedding.titre
+      %td= wedding.description
+      %td= wedding.lieu
+      %td= wedding.date
+      %td= wedding.duree
+      %td= link_to 'Show', wedding
+      %td= link_to 'Edit', edit_wedding_path(wedding)
+      %td= link_to 'X', wedding, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Wedding', new_wedding_path, :class => "btn primary"
+

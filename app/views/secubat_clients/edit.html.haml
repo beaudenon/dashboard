@@ -1,0 +1,20 @@
+- content_for :page_header do
+  %div{:style => "overflow:hidden;"}
+    %h1= "Modification du client [#{@secubat_client.gender.capitalize} #{@secubat_client.first_name} #{@secubat_client.last_name}]"
+    %div.row-fluid
+      .span6{:style => "margin:0px;"}
+        = render 'navigation', :page => "edit_secubat_client_path"
+      .span6
+        %div{:class => "alert alert-success fade in", :style => "margin-bottom:0px;"}
+          %button.close{"data-dismiss" => "alert", :type => "button"} ×
+          #notice= notice
+= render 'form'
+
+= link_to 'Voir', @secubat_client, :class => "btn btn-primary"
+= link_to 'Retour', secubat_clients_path, :class => "btn btn-primary"
+
+:javascript
+  if ($("#notice").html() == "") {
+    $(".alert.alert-success").alert('close');
+  }
+  $(".alert.alert-success").alert();

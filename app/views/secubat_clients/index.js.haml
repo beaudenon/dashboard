@@ -1,0 +1,22 @@
+- if !@secubat_client.nil?
+  $("#mailing_count_#{@secubat_client.id}").html("#{escape_javascript(render :partial => "secubat_clients/table_secubat_client_mailing", :locals => {:contact => @secubat_client, :button_size => "btn-mini" })}");
+  $("#sortableTable").trigger("update");
+  $("#mailing_count_show_#{@secubat_client.id}").html("#{escape_javascript(render :partial => "secubat_clients/table_secubat_client_mailing", :locals => {:contact => @secubat_client, :button_size => "btn"})}");
+  $("#sortableTableShow").html("#{escape_javascript(render :partial => 'table_client_mailing')}");
+  $("#sortableTableShow").trigger("update");
+
+- if !@secubat_clients.nil?
+  - @secubat_clients.each do |s|
+    $("#mailing_count_#{s.id}").html("#{escape_javascript(render :partial => "secubat_clients/table_secubat_client_mailing", :locals => {:contact => s, :button_size => "btn-mini"})}");
+    $("#sortableTable").trigger("update");
+
+$("#count_total_mailings").html("Total de mails envoyés: #{@count_total_mailings}");
+$("#count_total_mailings_this_week_success").html("Mails envoyés cette semaine: #{@count_total_mailings_this_week_success}");
+$("#count_total_mailings_this_week_pending").html("Mails en attente cette semaine: #{@count_total_mailings_this_week_pending}");
+- if (@count_total_mailings_this_week_success != "0")
+  $("#count_total_mailings_this_week_success").removeClass("btn btn-danger");
+  $("#count_total_mailings_this_week_success").addClass("btn btn-success");
+- if (@count_total_mailings_this_week_pending != "0")
+  $("#count_total_mailings_this_week_pending").removeClass("btn btn-success");
+  $("#count_total_mailings_this_week_pending").addClass("btn btn-danger");
+$("#loader").css({visibility:"hidden"});

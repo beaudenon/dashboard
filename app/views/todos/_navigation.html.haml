@@ -1,0 +1,14 @@
+.div{:style => "height:10px;"}
+.btn-group
+  - unless @todo_previous.nil?
+    = link_to 'Previous', send(page.to_sym, :id => @todo_previous.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+  - else
+    .input{:class => "btn btn-primary disabled", :type => :button}
+      = "Previous"
+  = link_to 'Edit', edit_todo_path(@todo, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary" unless page == "edit_todo_path"
+  = link_to 'Show', todo_path(@todo, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary" unless page == "todo_path"
+  - unless @todo_next.nil?
+    = link_to 'Next', send(page.to_sym, :id => @todo_next.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+  - else
+    .input{:class => "btn btn-primary disabled", :type => :button}
+      = "Next"

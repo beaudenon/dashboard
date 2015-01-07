@@ -1,0 +1,18 @@
+%ul.nav
+  %li{:class => ((params[:controller] == "projects") ? :active : "")}
+    %a{:href => "/"} Home
+  %li{:class => ((params[:controller] == "weddings") ? :active : "")}
+    %a{:href => "/weddings"} Wedding
+  %li{:class => ((params[:controller] == "todos") ? :active : "")}
+    %a{:href => "/todos"} Todos
+  %li{:class => ((params[:controller] == "projects") ? :active : "")}
+    %a{:href => "/projects?current_activity=yes"} Projects
+  %li{:class => ((params[:controller] == "statuses") ? :active : "")}
+    %a{:href => "/statuses"} Status
+  %li{:class => ((params[:controller] == "types") ? :active : "")}
+    %a{:href => "/types"} Types
+  %li{:class => ((params[:controller] == "urls") ? :active : "")}
+    %a{:href => "/urls"}
+      ="Url"
+      - unless @count_urls.nil?
+        %span{:style => "color:#FF0000;"}="(#{@count_urls})"

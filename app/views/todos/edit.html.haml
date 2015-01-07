@@ -1,0 +1,9 @@
+- content_for :page_header do
+  %h1
+    = "Edit Todo"
+    = render 'navigation', :page => "edit_todo_path"
+= render 'form'
+
+= link_to 'Back to the project', todos_path(:filter_project => @todo.project.id, :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+= link_to 'Show', todo_path(:id => @todo.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+= link_to 'Back', todos_path(:filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"

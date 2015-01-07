@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  titre: MyString
+  description: MyText
+  lieu: MyString
+  date: 2011-12-22 22:33:53
+  duree: 
+  personne: MyString
+
+two:
+  titre: MyString
+  description: MyText
+  lieu: MyString
+  date: 2011-12-22 22:33:53
+  duree: 
+  personne: MyString

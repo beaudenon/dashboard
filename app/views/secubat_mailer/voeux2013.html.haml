@@ -1,0 +1,94 @@
+!!!
+%html
+  %head
+    %title
+      ="SECUBAT"
+  %body{:style => "bgcolor=#FFFFFF margin: 0; font-family: Helvetica,Arial, sans-serif;font-size: 13px;line-height: 18px;color: #333333;background-color: #ffffff;"}
+    %table{:border => 0}
+      %tr
+        %td{:style => "width:170px; vertical-align:top;"}
+          %a{:href => "http://www.secubat.com?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => "text-decoration:none"}
+            %img{:src => "http://www.secubat.com/images/chateau/chateau_secubat.png", :border => 0, :width => "170px"}
+        %td{:style => "padding:20px 20px; min-width:200px; "}
+          %table
+            %tr
+              %td{:style => "vertical-align:top;"}
+                %p{:align => "left", :style => "margin: 50px auto 0px; font-size: 12px; font-family:Arial; width:230px; color:#339;"}
+                  - if (!@username.nil?)
+                    = "#{@username},"
+                  - else
+                    %span= "<<Monsieur / Madame Prénom NOM,>>"
+              %td{:style => "text-align:right; padding:0px 0px 15px 35px; width:230px;vertical-align:top;"}
+                %a{:href => "http://www.secubat.com?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => "text-decoration:none"}
+                  %div{:style =>"font-size: 28px; line-height: 30px; color:#DD6600;"}
+                    %b
+                      = "SECUBAT"
+                    %br
+                    %em{:style => "font-style: italic; font-size: 10px; line-height: 12px; color:#339;"}
+                      ="Une Entreprise à la Hauteur, en toute Sécurité..."
+                %b{:style => "font-family:Arial, Helvetica, sans-serif; font-size: 9px;"}
+                  ="SECURISATION - TRAVAUX EN HAUTEUR / E.U.O."
+                %div{:style =>"font-size: 11px; font-family: Arial, Helvetica, sans-serif; line-height:12px;"}
+                  = "Centre d'Affaires - 6ème étage"
+                  %br
+                  = "Tour Europa - Bd de l' Europe"
+                  %b= "94320 THIAIS"
+                  %br
+                  %b
+                    ="Portable :"
+                  ="06 09 15 09 78"
+                %div{:style => "font-size: 13px; font-family:Arial, Helvetica, sans-serif; line-height:14px;", :color => "#0033FF"}
+                  %a{:href => "http://www.secubat.com?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => "color:#0033FF; text-decoration:none"}
+                    ="www.secubat.com"
+                %div{:style => "font-size: 13px; font-family:Arial, Helvetica, sans-serif; line-height:14px;"}
+                  %a{:href => "mailto:michel.beaudenon@secubat.com", :style => "color:#DD6600; text-decoration:none"}
+                    ="michel.beaudenon@secubat.com"
+            %tr
+              %td{:colspan => 2}
+                %p{:align => "center", :style => "margin: 30px auto; font-size: 14px; font-family:Arial; width:400px; "}
+                  %em{:style => "color:#339; font-style:normal;"}
+                    - if (!@bodymail.nil?)
+                      = "#{@bodymail}"
+                    - else
+                      %span{:style => "color:#339; font-style:normal;"}= "Que notre collaboration perdure en cette nouvelle année 2013. Tous nos vœux de bonheur et prospérité."
+                %a{:href => "http://www.secubat.com?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => "color:#0033FF; text-decoration:none;"}
+                  %img{:src => "http://www.secubat.com/images/voeux/voeux2013.png", :width => "500px", :style => "border: 1px solid #BBB; border-radius:8px;"}
+
+                %div{:style => "margin: 30px 0px;"}
+                  - styledivlink = "margin-left:4px; float:left; color:#339; border: 1px solid #BBB; border-radius:5px; font-size: 8px; font-family:Arial; padding:2px; background-color:#EEE; width: 91px; text-align:center;"
+                  - stylelink = "color:#339; text-decoration:none"
+                  %div{:style => styledivlink + " margin-left:0px;" }
+                    %b
+                      %a{:href => "http://www.secubat.com/garde-corps.php?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => stylelink}
+                        = "GARDE-CORPS"
+                  %div{:style => styledivlink}
+                    %b
+                      %a{:href => "http://www.secubat.com/lignes-de-vie.php?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => stylelink}
+                        = "LIGNES DE VIE"
+                  %div{:style => styledivlink}
+                    %b
+                      %a{:href => "http://www.secubat.com/echelles.php?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => stylelink}
+                        = "ECHELLES"
+                  %div{:style => styledivlink}
+                    %b
+                      %a{:href => "http://www.secubat.com/ancrages.php?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => stylelink}
+                        = "POINTS D'ANCRAGES"
+                  %div{:style => styledivlink}
+                    %b
+                      %a{:href => "http://www.secubat.com/expertise.php?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => stylelink}
+                        = "SUR MESURE"
+
+            %tr
+              %td{:colspan => 2}
+                %p{:align => "right", :style => "margin: 0 0 0px; font-size: 9px; font-family:Arial; line-height:12px;"}
+                  %b
+                    = "Inscription:"
+                  = "Pour recevoir nos offres sur une autre adresse mail: "
+                  %a{:href => "mailto:michel.beaudenon@secubat.com?subject=[Inscription DB2]", :style => "color:#0033FF; text-decoration:none"}
+                    = "Cliquez ici"
+                %p{:align => "right", :style => "margin: 0 0 9px; font-size: 9px; font-family:Arial; line-height:12px;"}
+                  %b
+                    = "Désinscription:"
+                  = "Pour supprimer l'adresse mail à laquelle vous avez reçu ce courrier: "
+                  %a{:href => "mailto:michel.beaudenon@secubat.com?subject=[Desinscription DB2]", :style => "color:#0033FF; text-decoration:none"}
+                    = "Cliquez ici"

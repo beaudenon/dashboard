@@ -1,0 +1,2 @@
+module SecubatClientsHelper
+end

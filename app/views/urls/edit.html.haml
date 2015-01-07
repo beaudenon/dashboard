@@ -1,0 +1,7 @@
+- content_for :page_header do
+  %h1 Editing url
+
+= render 'form'
+
+= link_to 'Show', @url, :class => "btn btn-primary"
+= link_to 'Back', urls_path, :class => "btn btn-primary"

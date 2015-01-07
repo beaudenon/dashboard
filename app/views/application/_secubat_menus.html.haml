@@ -1,0 +1,6 @@
+%ul.nav
+  %li{ :class => (request.url.include?("secubat_client") ? :active : "") }
+    %a{:href => "/secubat_clients"} Clients
+  %li{ :class => (request.url.include?("secubat_model") ? :active : "") }
+    %a{:href => "/secubat_models"} Modèles
+

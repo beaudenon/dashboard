@@ -1,0 +1,82 @@
+- content_for :page_header do
+  %h1
+    = "Todo #{@todo.id}"
+    =render 'navigation', :page => "todo_path"
+
+%p#notice= notice
+.span6
+  %p
+    %b Project:
+    = @todo.project.name
+  %p
+    %b Title:
+    = unbadgetize(@todo.title).gsub(/\n/, '<br />').html_safe
+  %p
+    %b Tags:
+    = render :partial => "todo_tag", :locals => {:title => @todo.title}
+
+  %p
+    %b Status:
+    %span{:class => color_class(@todo.status.color)}
+      = @todo.status.name
+  %p
+    %b Type:
+    - unless @todo.type.nil?
+      %span{:class => color_class(@todo.type.color)}
+        = @todo.type.name
+  %p
+    %b Url:
+    = link_to @todo.url, @todo.url, :target => "_blank"
+  %p
+    %b Estimated Time:
+    = "#{@todo.estimated_time} minutes"
+  %p
+    %b Past Time:
+    = "#{@todo.past_time} minutes"
+  %p
+    %b Emergency:
+    = @todo.emergency
+  %p
+    %b Importance:
+    = @todo.importance
+  %p
+    %b Difficulty:
+    = @todo.difficulty
+  %p
+    %b Position:
+    = @todo.position
+  %p
+    %b Progress:
+    %div{:class => progress_class(@todo.progress), :style => "margin-bottom:0px;"}
+      %div{:class => "bar", :style => "width: #{@todo.progress}%;"}
+.span6
+  %p
+    %b Description:
+    %div{:style => "padding-left:20px;"}
+      = @todo.description.gsub(/\n/, '<br />').html_safe
+  %p
+    %b Begin at:
+    = @todo.to_begin_at
+  %p
+    %b Deadline at:
+    = @todo.deadline_at
+  %p
+    %b Finished at:
+    = @todo.finished_at
+  %p
+    %b Archived at:
+    = @todo.archived_at
+  %p
+    %b Created at:
+    = @todo.created_at
+  %p
+    %b Updated at:
+    = @todo.updated_at
+
+.span12{:style => "padding-top:20px;"}
+  .form-actions
+    = link_to 'Back to the project', todos_path(:filter_project => @todo.project.id, :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+    = link_to 'Back', todos_path(:filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+    = link_to 'Edit', edit_todo_path(@todo, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+    = link_to 'New', new_todo_path(:filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary"
+    = link_to 'Delete', todo_path(:id => @todo.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary"

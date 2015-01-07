@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Titre:
+  = @wedding.titre
+%p
+  %b Description:
+  = @wedding.description
+%p
+  %b Lieu:
+  = @wedding.lieu
+%p
+  %b Date:
+  = @wedding.date
+%p
+  %b Duree:
+  = @wedding.duree
+%p
+  %b Personne:
+  = @wedding.personne
+
+= link_to 'Edit', edit_wedding_path(@wedding)
+\|
+= link_to 'Back', weddings_path

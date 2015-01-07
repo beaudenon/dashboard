@@ -1,0 +1,57 @@
+= form_for @secubat_client, :html => {:class => " form-horizontal"} do |f|
+  -if @secubat_client.errors.any?
+    #error_explanation
+      .alert.alert-error
+        %h2= "#{pluralize(@secubat_client.errors.count, "erreur")} :"
+        %ul
+          - @secubat_client.errors.full_messages.each do |msg|
+            %li= msg
+  %fieldset
+    .row
+      .span12
+        .row
+          .span6
+            .control-group
+              %label.control-label= "Civilité"
+              .controls
+                =f.select :gender, %w[Monsieur Madame]
+            .control-group
+              %label.control-label=  "Nom"
+              .controls
+                = f.text_field :last_name
+            .control-group
+              %label.control-label=  "Prénom"
+              .controls
+                = f.text_field :first_name
+            .control-group
+              %label.control-label
+                = "Email"
+                %span{:style => "color:#FF0000;"}="*"
+              .controls
+                = f.text_field :email
+          .span6
+            .control-group
+              %label.control-label=  "Téléphone"
+              .controls
+                = f.text_field :phone
+            .control-group
+              %label.control-label=  "Entreprise"
+              .controls
+                = f.text_field :entreprise
+            .control-group
+              %label.control-label=  "Description"
+              .controls
+                = f.text_area :description, :style => "max-height:50px;"
+            .control-group
+              %label.control-label=  "Administrateur?"
+              .controls
+                = f.check_box :is_admin
+        .row
+          .span12
+            .control-group.small
+              .form-actions
+                = f.submit 'Sauvegarder', :class => "btn btn-primary"
+                = f.submit 'Sauvegarder et Ajouter un nouveau client', :class => "btn btn-primary"
+                = f.submit 'Sauvegarder et Précédent', :class => "btn btn-primary" unless @secubat_client_previous.nil?
+                = f.submit 'Sauvegarder et Suivant', :class => "btn btn-primary" unless @secubat_client_next.nil?
+

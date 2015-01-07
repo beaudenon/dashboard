@@ -1,0 +1,105 @@
+%td= link_to todo.id, todo_path(:id => todo.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status])
+%td= link_to todo.project.name, todos_path(:filter_project => todo.project_id, :filter_status => params[:filter_status], :exclude_status => params[:exclude_status])
+%td
+  - maxsize = 50
+  - title = unbadgetize(todo.title)
+  - size = title.index(' ', maxsize - title.length)
+  %div{:style => "float:left; padding-top:1px;"}
+    = link_to (title.length > maxsize) ? "#{title[0..(size ||= title.rindex(' '))]}..." : title, todo_path(:id => todo.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]),
+      "data_toggle" => "tooltip",
+      :class => (title.length > maxsize) ? "tooltipable" : "",
+      "data-title" => title.gsub(/\n/, '<br />')
+  - unless todo.description.empty?
+    %div{:style => "float:right; padding-left:5px;"}
+      = link_to 'Details', todo,
+        :class => "btn btn-warning btn-mini tooltipable",
+        "data-toggle" => "tooltip",
+        "data-placement" => "bottom",
+        "data-title" => todo.description.gsub(/\n/, '<br />')
+  - unless todo.url.empty?
+    %div{:style => "float:right;"}
+      = link_to 'Link', todo.url, :target => "_blank", :class => "btn btn-info btn-mini"
+%td
+  = render :partial => "todo_tag", :locals => {:title => todo.title}
+
+%td
+  - unless todo.status.nil?
+    %div{:style => "display:none;"}= "#{todo.status.position};"
+    .btn-group
+      %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :class => color_class(todo.status.color), :style => "width: 50px;"}
+        = todo.status.name
+        %span.caret{:style => "padding-top:5px;"}
+      %ul.dropdown-menu{:style => "text-align:left; min-width:65px;"}
+        - @statuses.each do |s|
+          - unless s.progress != 100
+            %li.divider
+          %li
+            = link_to s.name, update_status_todo_path(:id => todo.id, :status_id => s.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :remote => true, :style => "padding-left: 10px;", :method => :post
+
+%td
+  - type_color = todo.type.color unless todo.type.nil?
+  - type_position = todo.type.nil? ? 0 : todo.type.position
+  - type_name = todo.type.nil? ? "None" : todo.type.name
+  %div{:style => "display:none;"}= "#{type_position};"
+  .btn-group
+    %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :class => color_class(type_color), :style => "width: 50px;"}
+      = type_name
+      %span.caret{:style => "padding-top:5px;"}
+    %ul.dropdown-menu{:style => "text-align:left; min-width:65px;"}
+      - @types.each do |t|
+        %li
+          = link_to t.name, update_type_todo_path(:id => todo.id, :type_id => t.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :remote => true, :style => "padding-left: 10px;", :method => :post
+
+-#%td{:style => "text-align:right; padding-right:5px"}
+  - if todo.past_time != 0
+    %div{:style => "display:none;"}= "#{todo.past_time};"
+    = "#{distance_of_time_in_words(todo.past_time * 60 * (todo.progress / 100))}"
+  - else
+    %div{:style => "display:none;"}= "#{todo.estimated_time};"
+    = "#{distance_of_time_in_words(todo.estimated_time * 60 * (todo.progress / 100))}"
+
+-#%td{:style => "text-align:right; padding-right:5px"}
+  %div{:style => "display:none;"}= "#{todo.estimated_time};"
+  = "#{distance_of_time_in_words(todo.estimated_time * 60)}"
+
+%td
+  .btn-group
+    %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :class => color_class(todo.difficulty), :style => "width: 18px;"}
+      = todo.difficulty
+      %span.caret{:style => "padding-top:5px;"}
+    %ul.dropdown-menu{:style => "text-align:left; min-width:28px; max-width:28px;"}
+      - 1.upto(6).each do |s|
+        %li
+          = link_to s, update_difficulty_todo_path(:id => todo.id, :difficulty_id => s, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :remote => true, :style => "padding-left: 10px;", :method => :post
+%td
+  .btn-group
+    %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :class => color_class(todo.emergency), :style => "width: 18px;"}
+      = todo.emergency
+      %span.caret{:style => "padding-top:5px;"}
+    %ul.dropdown-menu{:style => "text-align:left; min-width:28px; max-width:28px;"}
+      - 1.upto(5).each do |s|
+        %li
+          = link_to s, update_emergency_todo_path(:id => todo.id, :emergency_id => s, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :remote => true, :style => "padding-left: 10px;", :method => :post
+%td
+  .btn-group
+    %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :class => color_class(todo.importance), :style => "width: 18px;"}
+      = todo.importance
+      %span.caret{:style => "padding-top:5px;"}
+    %ul.dropdown-menu{:style => "text-align:left; min-width:28px; max-width:28px;"}
+      - 1.upto(5).each do |s|
+        %li
+          = link_to s, update_importance_todo_path(:id => todo.id, :importance_id => s, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :remote => true, :style => "padding-left: 10px;", :method => :post
+
+%td{:style => "padding-left:15px;"}
+  %span{:class => priority_class(todo.emergency * todo.importance)}
+    = todo.emergency * todo.importance
+%td
+  %div{:style => "display:none;"}= "#{todo.progress}"
+  %div{:class => progress_class(todo.progress), :style => "margin-bottom:0px;"}
+    %div{:class => "bar", :style => "width: #{todo.progress}%;"}
+%td= todo.to_begin_at.to_date
+%td
+  = todo.deadline_at.to_date unless todo.deadline_at.nil?
+%td= link_to 'Show', todo_path(:id => todo.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary btn-mini"
+%td= link_to 'Edit', edit_todo_path(todo, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :class => "btn btn-primary btn-mini"
+%td= link_to 'X', todo_path(:id => todo.id, :filter_project => params[:filter_project], :filter_status => params[:filter_status], :exclude_status => params[:exclude_status]), :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary btn-mini"

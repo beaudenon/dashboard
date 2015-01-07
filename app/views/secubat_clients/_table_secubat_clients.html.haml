@@ -1,0 +1,42 @@
+%thead
+  %tr
+    %th{:class => "header orange", :style => "width:60px"}
+      %input{:type => "checkbox"}
+    %th{:class => "header purple"}= "#"
+    %th{:class => "header red", :style => "width:100px"}= "Civilité"
+    %th{:class => "header orange", :style => "width:200px"}= "Prénom"
+    %th{:class => "header blue", :style => "width:200px"}= "Nom"
+    %th{:class => "header green", :style => "width:300px"}= "Email"
+    %th{:class => "header purple", :style => "width:200px"}= "Entreprise"
+    -#%th{:class => "header green", :style => "width:120px"}= "SecubatMailing 2012"
+    %th{:class => "header yellow", :style => "width:200px"}= "Envoyer un mail"
+    %th
+    %th
+    %th
+%tbody
+  - @secubat_clients.each do |secubat_client|
+    %tr
+      %td
+        %input{:type => "checkbox", :value => secubat_client.id, :id => "optionsCheckbox_#{secubat_client.id}", :name => "m_ids[]"}
+      %td= secubat_client.id
+      %td= secubat_client.gender.capitalize
+      %td= secubat_client.first_name
+      %td
+        = secubat_client.last_name
+        - if secubat_client.is_admin?
+          %span{:class => "badge badge-important", :style => "font-size: 9px;"}
+            ="admin"
+      %td= secubat_client.email
+      %td= secubat_client.entreprise
+      %td
+        %div{:id => "mailing_count_#{secubat_client.id}", :class => "btn-group"}
+          = render :partial => "table_secubat_client_mailing", :locals => {:contact => secubat_client, :button_size => "btn-mini"}
+
+        -#.control-group
+          -#.controls
+            -#%label{:class => "checkbox"}
+              -#%input{:type => "checkbox", :value => secubat_client.id, :id => "optionsCheckbox_#{secubat_client.id}", :name => "m_ids[]"}
+
+      %td= link_to 'Voir', secubat_client, :class => "btn btn-primary btn-mini"
+      %td= link_to 'Modifier', edit_secubat_client_path(secubat_client), :class => "btn btn-primary btn-mini"
+      %td= link_to 'X', secubat_client, :confirm => 'Confirmer la suppression?', :method => :delete, :class => "btn btn-danger btn-mini"

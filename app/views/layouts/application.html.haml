@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %title
+      - if request.url.include?("secubat")
+        = "Secubat Admin"
+      - else
+        = "Dashboard"
+    -#%link{ :href => "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css", :rel => "stylesheet" }
+    = stylesheet_link_tag "bootstrap.min.css", :application
+    = javascript_include_tag 'http://code.jquery.com/jquery-1.5.2.min.js'
+    = javascript_include_tag 'jquery', 'jquery_ujs', 'jquery.tablesorter.js', 'jquery.tablesorter.widgets.js', 'bootstrap-dropdown'
+    = csrf_meta_tags
+
+%body
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container{:style => "width:1200px"}
+        - if request.url.include?("secubat")
+          = link_to "Secubat Admin", root_path, :class => :brand
+          = render "secubat_menus"
+        - else
+          = link_to "Dashboard", root_path, :class => :brand
+          = render "menus"
+          = form_for("#", :html => { :class => "pull-right" }) do |f|
+            = f.text_field "", :class => "input-small",  :type => "text", :placeholder => "Username"
+            = f.text_field "", :class => "input-small",  :type => "password", :placeholder => "Password"
+            %button.btn{ :type => "submit" }
+              Sign in
+
+  .container{:style => "width:1200px"}
+    .content{:style => "width:1180px"}
+      .page-header
+        = yield :page_header
+
+      .row
+        .span20
+          =yield
+    %footer
+      %p
+        ="© #{Time.new.year}"

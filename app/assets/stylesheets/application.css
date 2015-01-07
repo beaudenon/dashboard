@@ -1,0 +1,165 @@
+
+/* Override some defaults */
+  html, body {
+    background-color: #eee;
+  }
+  body {
+    padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+  }
+  .container > footer p {
+    text-align: center; /* center align it with the container */
+  }
+  .container {
+    width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
+  }
+
+  /* The white background content wrapper */
+  .content {
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+    -webkit-border-radius: 0 0 6px 6px;
+       -moz-border-radius: 0 0 6px 6px;
+            border-radius: 0 0 6px 6px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+
+  /* Page header tweaks */
+  .page-header {
+    background-color: #f5f5f5;
+    padding: 20px 20px 10px;
+    margin: -20px -20px 20px;
+  }
+
+  /* Styles you shouldn't keep as they are for displaying this base example only */
+  .content .span10,
+  .content .span4 {
+    min-height: 400px;
+  }
+  /* Give a quick and non-cross-browser friendly divider */
+  .content .span4 {
+    margin-left: 0;
+    padding-left: 19px;
+    border-left: 1px solid #eee;
+  }
+
+  .topbar .btn {
+    border: 0;
+  }
+
+  .container a.brand {
+    color:#FFFF00;
+  }
+
+  .container div.brand.dev {
+    color:#0F0;
+    font-size:10px;
+    padding:0 0 0 10px;
+    margin:0;
+    width:10px;
+  }
+
+  .container div.brand.beta {
+    color:#F8F;
+    font-size:10px;
+    padding:0 10px;
+    margin:0;
+    width:2px;
+  }
+
+  .nav a {
+    color:#0069D6;
+  }
+
+  .topbar div > ul .active > a, .nav .active > a {
+    color:#FF0000;
+  }
+
+table .header{cursor:pointer;}table .header:after{content:"";float:right;margin-top:6px;border-width:0 4px 4px;border-style:solid;border-color:#000 transparent;visibility:hidden;}
+
+table .tablesorter-headerDesc,table .tablesorter-headerAsc{background-color:rgba(141, 192, 219, 0.25);text-shadow:0 1px 1px rgba(255, 255, 255, 0.75);}
+table .header:hover:after{visibility:visible;}
+table .tablesorter-headerAsc:after,table .tablesorter-headerAsc:hover:after{visibility:visible;filter:alpha(opacity=60);-khtml-opacity:0.6;-moz-opacity:0.6;opacity:0.6;}
+table .tablesorter-headerDesc:after{border-bottom:none;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid #000;visibility:visible;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;filter:alpha(opacity=60);-khtml-opacity:0.6;-moz-opacity:0.6;opacity:0.6;}
+table .blue{color:#049cdb;border-bottom-color:#049cdb;}
+table .tablesorter-headerDesc.blue,table .tablesorter-headerAsc.blue{background-color:#ade6fe;}
+table .green{color:#46a546;border-bottom-color:#46a546;}
+table .tablesorter-headerDesc.green,table .tablesorter-headerAsc.green{background-color:#cdeacd;}
+table .red{color:#9d261d;border-bottom-color:#9d261d;}
+table .tablesorter-headerDesc.red,table .tablesorter-headerAsc.red{background-color:#f4c8c5;}
+table .yellow{color:#ffc40d;border-bottom-color:#ffc40d;}
+table .tablesorter-headerDesc.yellow,table .tablesorter-headerAsc.yellow{background-color:#fff6d9;}
+table .orange{color:#f89406;border-bottom-color:#f89406;}
+table .tablesorter-headerDesc.orange,table .tablesorter-headerAsc.orange{background-color:#fee9cc;}
+table .purple{color:#7a43b6;border-bottom-color:#7a43b6;}
+table .tablesorter-headerDesc.purple,table .tablesorter-headerAsc.purple{background-color:#e2d5f0;}
+
+table .tablesorter-tablesorter-headerDesc,table .tablesorter-tablesorter-headerAsc{background-color:rgba(141, 192, 219, 0.25);text-shadow:0 1px 1px rgba(255, 255, 255, 0.75);}
+table .header:hover:after{visibility:visible;}
+table .tablesorter-tablesorter-headerAsc:after,table .tablesorter-tablesorter-headerAsc:hover:after{visibility:visible;filter:alpha(opacity=60);-khtml-opacity:0.6;-moz-opacity:0.6;opacity:0.6;}
+table .tablesorter-tablesorter-headerDesc:after{border-bottom:none;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid #000;visibility:visible;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;filter:alpha(opacity=60);-khtml-opacity:0.6;-moz-opacity:0.6;opacity:0.6;}
+table .blue{color:#049cdb;border-bottom-color:#049cdb;}
+table .tablesorter-tablesorter-headerDesc.blue,table .tablesorter-tablesorter-headerAsc.blue{background-color:#ade6fe;}
+table .green{color:#46a546;border-bottom-color:#46a546;}
+table .tablesorter-tablesorter-headerDesc.green,table .tablesorter-tablesorter-headerAsc.green{background-color:#cdeacd;}
+table .red{color:#9d261d;border-bottom-color:#9d261d;}
+table .tablesorter-tablesorter-headerDesc.red,table .tablesorter-tablesorter-headerAsc.red{background-color:#f4c8c5;}
+table .yellow{color:#ffc40d;border-bottom-color:#ffc40d;}
+table .tablesorter-tablesorter-headerDesc.yellow,table .tablesorter-tablesorter-headerAsc.yellow{background-color:#fff6d9;}
+table .orange{color:#f89406;border-bottom-color:#f89406;}
+table .tablesorter-tablesorter-headerDesc.orange,table .tablesorter-tablesorter-headerAsc.orange{background-color:#fee9cc;}
+table .purple{color:#7a43b6;border-bottom-color:#7a43b6;}
+table .tablesorter-tablesorter-headerDesc.purple,table .tablesorter-tablesorter-headerAsc.purple{background-color:#e2d5f0;}
+.table td {vertical-align: middle;}
+
+table#sortableTable tbody tr.odd.checked td {
+  background: #8080c0;
+  color: #fff;
+}
+table#sortableTable tbody tr.even.checked td {
+  background: #a0a0e0;
+  color: #fff;
+}
+
+.tablesorter-header-inner {
+  display: inline;
+}
+
+.muted {
+    color: #999999;
+}
+.text-warning {
+    color: #c09853;
+}
+.text-error {
+    color: #b94a48;
+}
+.text-info {
+    color: #3a87ad;
+}
+.text-success {
+    color: #468847;
+}
+
+.tooltip-inner {
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+}
+
+a:hover.tags{
+    text-decoration: none;
+}
+
+.tags {
+    padding: 0px 2px 2px 0px;
+}
+
+.badge-custom {
+    background-color: #AD5000;
+}
+
+

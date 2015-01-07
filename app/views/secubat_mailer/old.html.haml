@@ -1,0 +1,113 @@
+!!!
+%html
+  %head
+    %title
+      ="SECUBAT"
+  %body{:style => "bgcolor=#FFFFFF margin: 0; font-family: Helvetica,Arial, sans-serif;font-size: 13px;line-height: 18px;color: #333333;background-color: #ffffff;"}
+    %div{:style => "float:left;"}
+      %a{:href => "http://www.secubat.com/", :style => "text-decoration:none"}
+        %img{:src => "http://www.secubat.com/images/chateau/chateau_secubat.png", :border => 0}
+    %div{:style => "padding:20px 20px; margin-left:200px; max-width: 600px; min-width:200px; "}
+
+      %div{:style => "text-align:right; float: right; padding:0px 0px 15px 35px;"}
+        %a{:href => "http://www.secubat.com/", :style => "text-decoration:none"}
+          %div{:style =>"font-size: 28px; line-height: 30px; color:#DD6600;"}
+            %b
+              = "SECUBAT"
+              %br
+                %em{:style => "font-style: italic; font-size: 10px; line-height: 12px; color:#0033FF;"}
+                  ="Une Entreprise à la Hauteur, en toute Sécurité..."
+
+        %b{:style => "font-family:Arial, Helvetica, sans-serif; font-size: 9px;"}
+          ="SECURISATION - TRAVAUX EN HAUTEUR / E.U.O."
+        %div{:style =>"font-size: 11px; font-family: Arial, Helvetica, sans-serif; line-height:12px;"}
+          = "Centre d'Affaires - 6ème étage"
+          %br
+          = "Tour Europa - Bd de l' Europe"
+          = "94320 THIAIS"
+          %br
+          %b
+            ="PORTABLE :"
+          ="06 09 15 09 78"
+        %div{:style => "font-size: 13px; font-family:Arial, Helvetica, sans-serif; line-height:14px;", :color => "#0033FF"}
+          %a{:href => "http://www.secubat.com", :style => "color:#0033FF; text-decoration:none"}
+            ="www.secubat.com"
+        %div{:style => "font-size: 13px; font-family:Arial, Helvetica, sans-serif; line-height:14px;"}
+          %a{:href => "mailto:michel.beaudenon@secubat.com", :style => "color:#DD6600; text-decoration:none"}
+            ="michel.beaudenon@secubat.com"
+      %br
+      %p{:align => "justify", :style => "margin: 0 0 9px; font-size: 12px; font-family:Arial"}
+        - if (!@username.nil?)
+          %b= "Bonjour #{@username},"
+        - else
+          %span{:style => "font-style: italic; color:#F90;"}= "<<Bonjour Monsieur/Madame Prénom NOM,>>"
+        %br
+        %br
+        %em{:style => "font-style: italic;"}
+          - if (!@bodymail.nil?)
+            = "#{@bodymail}"
+          - else
+            %span{:style => "font-style: italic; color:#F90;"}= "<<Message personnalisé>>"
+      %br
+      %p{:align => "justify", :style => "margin: 0 0 9px; font-size: 12px; font-family:Arial"}
+        %b
+          %a{:href => "http://www.secubat.com/lignes-de-vie.php", :style => "color:#000099; text-decoration:none"}
+            = "LES LIGNES DE VIE"
+        = "sont destinées à une mise en sécurité individuelle et permanente, suivant la norme EN 795 classe C, pour se déplacer sans contrainte avec un E.P.I."
+        %br
+        = "Plusieurs configurations sont possibles, qu'elles soient simple ou double cables (via un coulisseau) : horizontale avec plusieurs virages sans se décrocher, verticale ou même hélicoïdale"
+
+      %p{:align => "justify", :style => "margin: 0 0 9px; font-size: 12px; font-family:Arial"}
+        %b
+          %a{:href => "http://www.secubat.com/garde-corps.php", :style => "color:#000099; text-decoration:none"}
+            = "LES GARDE-CORPS"
+        = "sont destinés à une mise en sécurité collective permanente suivant la norme  EN 14122-3. Ils peuvent être en acier galvanisé, aluminium, inox et post-laqués RAL au choix."
+        %br
+        = "Fixés mécaniquement, chimiquement ou encore en auto-portant, différents types existent, suivant l'esthétique recherchée : droits, inclinés, cintrés ou bien encore rabattables"
+
+      %p{:align => "justify", :style => "margin: 0 0 9px; font-size: 12px; font-family:Arial"}
+        %b
+          %a{:href => "http://www.secubat.com/ancrages.php", :style => "color:#000099; text-decoration:none"}
+            = "LES POINTS D'ANCRAGES"
+        = "fixes proposent une alternative pour des configurations spécifiques et restent une solution plus économique, suivant la norme EN 795 classe A1."
+        %br
+        = "Les cas d'utilisation sont multiples : intérieur comme extérieur, plan horizontal, vertical ou incliné, environnement difficile d'accès ou  pour une solution discrète dans un soucis d'esthétique."
+
+      %p{:align => "justify", :style => "margin: 0 0 9px; font-size: 12px; font-family:Arial"}
+        %b
+          %a{:href => "http://www.secubat.com/echelles.php", :style => "color:#000099; text-decoration:none"}
+            = "LES ECHELLES"
+        = "garantissent un accès optimal aux dispositifs de sécurité déjà mis en place. En aluminium ou en fibre de verre, elles sont conformes à la norme en vigueur."
+        %br
+        = "Les configurations possibles sont une échelle simple, inférieur à 2.50 m avec condamnation murale ou une échelle crinoline, supérieur à 2.50 m avec trappe d'accès"
+
+      %p{:align => "justify", :style => "margin: 0 0 9px; font-size: 12px; font-family:Arial"}
+        %b
+          %a{:href => "http://www.secubat.com/expertise.php", :style => "color:#000099; text-decoration:none"}
+            = "LES TRAVAUX PLUS SPECIFIQUES"
+        = "sont réalisés sur demande:"
+        %br
+        %ul{:style => "font-size: 12px; font-family:Arial; line-height:16px;"}
+          %li= "passerelles de franchissement d'obstacles"
+          %li= "planchers caillebotis"
+          %li= "filets inox anti-évasion"
+          %li= "contrats de maintenance de nos installations"
+          %li= "contrats d'entretien de toitures"
+      %p{:align => "justify", :style => "margin: 0 0 9px; font-size: 12px; font-family:Arial"}
+        %b
+          = "Pour un meilleur gage de qualité, nous proposons pour nos lignes de vie et nos ancrages, des vérifications réalisées par le bureau de contrôle"
+          %a{:href => "http://www.bureauveritas.fr/", :style => "color:#0033FF; text-decoration:none"}
+            = "VERITAS."
+      %br
+      %p{:align => "right", :style => "margin: 0 0 9px; font-size: 9px; font-family:Arial; line-height:12px;"}
+        %b
+          = "Inscription:"
+        = "Pour recevoir nos offres sur une autre adresse mail :"
+        %a{:href => "mailto:michel.beaudenon@secubat.com?subject=[Inscription DB2]", :style => "color:#0033FF; text-decoration:none"}
+          = "Cliquez ici"
+        %br
+        %b
+          = "Désinscription :"
+        = "Pour supprimer l'adresse mail à laquelle vous avez reçu ce courrier,"
+        %a{:href => "mailto:michel.beaudenon@secubat.com?subject=[Desinscription DB2]", :style => "color:#0033FF; text-decoration:none"}
+          = "Cliquez ici"

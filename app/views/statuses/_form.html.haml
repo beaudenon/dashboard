@@ -1,0 +1,26 @@
+= form_for @status do |f|
+  -if @status.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@status.errors.count, "error")} prohibited this status from being saved:"
+      %ul
+        - @status.errors.full_messages.each do |msg|
+          %li= msg
+
+  .clearfix
+    = f.label :name
+    .input
+      = f.text_field :name
+  .clearfix
+    = f.label :position
+    .input
+      = f.text_field :position
+  .clearfix
+    = f.label :color
+    .input
+      = f.text_field :color
+  .clearfix
+    = f.label :progress
+    .input
+      = f.text_field :progress
+  .form-actions
+    = f.submit 'Save', :class => "btn btn-primary"

@@ -1,0 +1,113 @@
+- content_for :page_header do
+  %h1
+    %span{:style => "vertical-align:middle;"}= "Clients Secubat"
+    %span{:class => "btn btn-info", :style => "vertical-align:middle;"}= "Total de contacts: #{@count_secubat_clients}"
+    %span{:id => "count_total_mailings", :class => "btn btn-info", :style => "vertical-align:middle;"}= "Total de mails envoyés: #{@count_total_mailings}"
+    %span{:id => "count_total_mailings_this_week_success", :class => @count_total_mailings_this_week_success == 0 ? "btn btn-danger" : "btn btn-success", :style => "vertical-align:middle;"}= "Mails envoyés cette semaine: #{@count_total_mailings_this_week_success}"
+    %span{:id => "count_total_mailings_this_week_pending", :class => @count_total_mailings_this_week_pending == 0 ? "btn btn-success" : "btn btn-danger", :style => "vertical-align:middle;"}= "Mails en attente cette semaine: #{@count_total_mailings_this_week_pending}"
+    %a.btn.btn-success{:href => secubat_clients_path}
+      %i.icon-refresh.icon-white{:style => "margin:3px 0px;"}
+  %div{:class => "alert alert-success fade in", :style => "margin-top:18px; margin-bottom:0px;"}
+    %button.close{"data-dismiss" => "alert", :type => "button"} ×
+    #notice= notice
+
+= form_tag send_mailings_model_secubat_clients_path(), :id => 'secubat_clients_form', :remote => true, :method => :post do
+  = hidden_field "hidden", "field_model_mailing"
+  %div{:id => "mailings_count", :class => "btn-group", :style => "float: left; padding-right: 10px;"}
+    %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :class => "btn btn-warning", :style => "width: 150px;"}
+      = "Envoyer un mail groupé"
+      %span.caret{:style => "padding-top:5px;"}
+    %ul.dropdown-menu{:style => "text-align:left; min-width:110px;"}
+      - @secubat_models.each do |model|
+        %li
+          =# submit_tag "Mailing", :id => "link_to_mailings", :class => "btn btn-warning", :style => "float: right;", :model_id => model.id
+          =# link_to "#{model.subject}", send_mailings_model_secubat_clients_path(:model_id => model.id), :remote => true, :style => "padding-left: 10px;", :method => :post
+          %a{:style => "padding-left: 10px; cursor:pointer;", :onclick => "$('#loader').css({visibility:'visible'}); $('#hidden_field_model_mailing').val(#{model.id}); $('#secubat_clients_form').submit();"}
+            = "#{model.subject}"
+  = link_to 'Nouveau client', new_secubat_client_path, :class => "btn btn-primary"
+
+  %div{:id => "loader", :style => "float: right; visibility: hidden; padding-right: 3px;"}
+    %img{:src => "/assets/loader.gif", :width => "25px"}
+  %br
+  %br
+
+
+  %table{:class => "table table-striped table-bordered table-condensed tablesorter", :id => "sortableTable"}
+    = render 'table_secubat_clients'
+
+= link_to 'Nouveau client', new_secubat_client_path, :class => "btn btn-primary"
+
+
+:javascript
+  $.tablesorter.addParser({
+    // set a unique id
+    id: 'mailings',
+    is: function(s) {
+      return false;
+    },
+    format: function(s) {
+      return s.substring(0, s.indexOf(';'));
+    },
+    type: 'numeric'
+  });
+
+  // add parser through the tablesorter addParser method
+  $.tablesorter.addParser({
+    id: 'checkbox',
+    is: function(s) {
+        return false;
+    },
+    format: function(s, table, cell, cellIndex) {
+      var $t = $(table), $c = $(cell), c,
+
+      // column containing all of the checkboxes (zero-based index)
+      columnWithCheckboxes = 0,
+      // resort the table after the checkbox status has changed
+      resort = false;
+
+      if (!$t.hasClass('hasCheckbox')) {
+        $t
+        .addClass('hasCheckbox')
+        // make checkbox in header set all others
+        .find('thead th:eq(' + columnWithCheckboxes + ') input[type=checkbox]')
+        .bind('change', function(){
+          c = this.checked;
+          $t.find('tbody tr td:nth-child(' + (columnWithCheckboxes + 1) + ') input').each(function(){
+            this.checked = c;
+            $(this).trigger('change');
+          });
+        })
+        .bind('mouseup', function(){
+            return false;
+        });
+        $t.find('tbody tr').each(function(){
+          $(this).find('td:eq(' + columnWithCheckboxes + ')').find('input[type=checkbox]').bind('change', function(){
+              $t.trigger('updateCell', [$(this).closest('td')[0], resort]);
+          });
+        });
+      }
+      // return 1 for true, 2 for false, so true sorts before false
+      c = ($c.find('input[type=checkbox]')[0].checked) ? 1 : 2;
+      $c.closest('tr')[ c === 1 ? 'addClass' : 'removeClass' ]('checked');
+      return c;
+    },
+    type: 'numeric'
+  });
+
+  $(function() {
+    $("table#sortableTable").tablesorter({
+      widgets: ["saveSort", "zebra"],
+      headers: {
+        7: {sorter: 'mailings'},
+        0: {sorter: 'checkbox'},
+        8: {sorter: false},
+        9: {sorter: false},
+        10: {sorter: false}
+      }
+   });
+  });
+
+  if ($("#notice").html() == "") {
+    $(".alert").alert('close');
+  }
+  $(".alert").alert();

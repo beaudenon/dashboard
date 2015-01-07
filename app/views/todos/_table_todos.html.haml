@@ -1,0 +1,25 @@
+%thead
+  %tr
+    %th{:class => "header purple"}= "#"
+    %th{:class => "header blue"}= "Project"
+    %th{:class => "header green"}= "Title"
+    %th{:class => "header orange"}= "Tags"
+    %th{:class => "header red"}= "Status"
+    %th{:class => "header yellow"}= "Type"
+    %th{:class => "header purple"}= "Diff"
+    %th{:class => "header purple"}= "Urg"
+    %th{:class => "header purple"}= "Imp"
+    %th{:class => "header purple"}= "Prio"
+    %th{:class => "header blue"}= "Progress"
+    %th{:class => "header red"}= "Begin"
+    %th{:class => "header red"}= "Deadline"
+    %th{:style => "width:10px;"}
+    %th{:style => "width:10px;"}
+    %th{:style => "width:10px;"}
+%tbody
+  - @todos.each do |todo|
+    %tr{:id => "table_todo_#{todo.id}", "data-link" => edit_todo_path(todo)}
+      = render :partial => "todo", :locals => {:todo => todo}
+
+:javascript
+  $('.tooltipable').tooltip();

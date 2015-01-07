@@ -1,0 +1,7 @@
+- good = 0
+- if !@dns.nil?
+  - @dns.each do |key, value|
+    %a{:class => value == true ? "btn success" : "btn danger", :style => "margin-bottom: 5px;", :href => "http://www.#{key}"}= "#{key}"
+    - good += 1 if value == true
+  %br
+  = "Total: #{good} / #{@dns.length}"
