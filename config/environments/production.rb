@@ -15,7 +15,7 @@ Wikidate::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true 
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -44,6 +44,7 @@ Wikidate::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w(bootstrap.min.css jquery.tablesorter.js jquery.tablesorter.widgets.js bootstrap-dropdown raphael.2.1.0.min.js justgage.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
@@ -57,8 +58,9 @@ Wikidate::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  # Do not eager load code on boot.
+
   config.eager_load = true
+
   config.action_mailer.default_url_options = { host: "admin.secubat.com" }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
@@ -69,6 +71,6 @@ Wikidate::Application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: "michel.beaudenon@secubat.com",
-    password: "********"
+    password: "pvvrr6hs"
   }
 end

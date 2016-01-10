@@ -1,5 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  before_filter :authenticate
+
+  def authenticate
+    if Rails.env == 'production'
+      authenticate_or_request_with_http_basic 'Dashboard Production' do |name, password|
+        name == 'beaudenon' && password == 'Pvvrr6hd'
+      end
+    end
+  end 
+
   def index
     @count_urls = Url.count()
     if request.url.include?("secubat")
