@@ -1,5 +1,6 @@
-Wikidate::Application.routes.draw do
+Rails.application.routes.draw do
   resources :secubat_mailings
+  get 'secubat_mailer/voeux2016', to: 'secubat_mailer#voeux2016', as: 'voeux2016'
 
   resources :secubat_models
 

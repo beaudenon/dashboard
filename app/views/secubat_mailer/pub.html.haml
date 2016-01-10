@@ -8,7 +8,7 @@
       %tr
         %td{:style => "width:200px; vertical-align:top;"}
           %a{:href => "http://www.secubat.com?trackermodel=#{@trackerModel}&trackermailing=#{@trackerMailing}", :style => "text-decoration:none"}
-            = image_tag("secubat/header/logo.png")
+            = image_tag(image_url("secubat/header/logo.png", :host => Rails.root))
         %td{:style => "padding:20px 20px; max-width: 600px; min-width:200px; "}
           %table
             %tr

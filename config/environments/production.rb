@@ -57,7 +57,8 @@ Wikidate::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-
+  # Do not eager load code on boot.
+  config.eager_load = true
   config.action_mailer.default_url_options = { host: "admin.secubat.com" }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp

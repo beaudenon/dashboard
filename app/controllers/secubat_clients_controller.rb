@@ -6,7 +6,7 @@ class SecubatClientsController < ApplicationController
   before_filter :set_locale
 
   def index
-    @secubat_clients = SecubatClient.all(:order => ["last_name ASC"])
+    @secubat_clients = SecubatClient.all.order("id ASC")
     @count_secubat_clients = SecubatClient.count()
     @count_total_mailings = SecubatMailing.count()
 
@@ -19,22 +19,22 @@ class SecubatClientsController < ApplicationController
   end
 
   def load_context
-    @secubat_models = SecubatModel.all(:order => :id, :conditions => {:is_activated => true})
+    @secubat_models = SecubatModel.all.where(:is_activated => true).order(:id)
     @secubat_count_mailings = SecubatMailing.count(:include => :secubat_model, :conditions => {:secubat_models => {:is_activated => true}}, :group => :secubat_client_id)
     @secubat_count_mailings_by_users = SecubatMailing.count(:group => [:secubat_client_id, :secubat_model_id])
     @secubat_more_recent_mailing_by_user = SecubatMailing.maximum(:updated_at, :group => :secubat_client_id)
     @count_total_mailings = SecubatMailing.count()
-    @count_total_mailings_this_week_success = SecubatMailing.sent_this_week_success.count()
-    @count_total_mailings_this_week_pending = SecubatMailing.sent_this_week_pending.count()
+    @count_total_mailings_this_week_success = SecubatMailing.sent_this_week_success.count
+    @count_total_mailings_this_week_pending = SecubatMailing.sent_this_week_pending.count
   end
 
   # GET /secubat_clients/1
   # GET /secubat_clients/1.json
   def show
     @secubat_client = SecubatClient.find(params[:id])
-    @secubat_mailings = SecubatMailing.order("secubat_mailings.created_at DESC").all(:include => :secubat_model, :conditions => {:secubat_client_id => @secubat_client})
-    @secubat_count_mailings = SecubatMailing.count(:include => :secubat_model, :conditions => {:secubat_models => {:is_activated => true}}, :group => :secubat_client_id)
-    @secubat_models = SecubatModel.all(:order => :id, :conditions => {:is_activated => true})
+    @secubat_mailings = SecubatMailing.order("secubat_mailings.created_at DESC").all.includes(:secubat_model).where(:secubat_client_id => @secubat_client)
+    @secubat_count_mailings = SecubatMailing.includes(:secubat_model).where(:secubat_models => {:is_activated => true}).group(:secubat_client_id).count
+    @secubat_models = SecubatModel.all.where(:is_activated => true).order(:id)
     @secubat_count_mailings_by_users = SecubatMailing.count(:group => [:secubat_client_id, :secubat_model_id])
     #@secubat_mailings = SecubatMailing.order("secubat_mailings.created_at DESC").find_all_by_secubat_client_id(@secubat_client.id)
     build_navigation
@@ -65,7 +65,7 @@ class SecubatClientsController < ApplicationController
   # POST /secubat_clients
   # POST /secubat_clients.json
   def create
-    @secubat_client = SecubatClient.new(params[:secubat_client])
+    @secubat_client = SecubatClient.new(secubat_client_params)
 
     respond_to do |format|
       if @secubat_client.save
@@ -88,7 +88,7 @@ class SecubatClientsController < ApplicationController
     @secubat_client = SecubatClient.find(params[:id])
     build_navigation
     respond_to do |format|
-      if @secubat_client.update_attributes(params[:secubat_client])
+      if @secubat_client.update(secubat_client_params)
         case params["commit"]
           when "Sauvegarder" then format.html { redirect_to @secubat_client, notice: 'Modification du client OK.' }
           when "Sauvegarder et Ajouter un nouveau client" then format.html {redirect_to new_secubat_client_path_path, notice: 'Modification du client OK.' }
@@ -158,8 +158,8 @@ class SecubatClientsController < ApplicationController
     #end
     load_context
     @secubat_client = SecubatClient.find(params[:id])
-    @secubat_mailings = SecubatMailing.order("secubat_mailings.created_at DESC").all(:include => :secubat_model, :conditions => {:secubat_client_id => @secubat_client})
-    @secubat_models = SecubatModel.all(:order => :id, :conditions => {:is_activated => true})
+    @secubat_mailings = SecubatMailing.order("secubat_mailings.created_at DESC").all.includes(:secubat_model).where(:secubat_client_id => @secubat_client)
+    @secubat_models = SecubatModel.all.where(:is_activated => true).order(:id)
     respond_to do |format|
       format.js {render :index}
     end
@@ -216,8 +216,12 @@ class SecubatClientsController < ApplicationController
     conditions_previous.push(@secubat_client.id)
     conditions_next[0] = " id > ? "
     conditions_next.push(@secubat_client.id)
-    @secubat_client_previous = SecubatClient.first(:conditions => conditions_previous, :order => "id DESC")
-    @secubat_client_next = SecubatClient.first(:conditions => conditions_next, :order => "id ASC")
+    @secubat_client_previous = SecubatClient.where(conditions_previous).order("id DESC").first
+    @secubat_client_next = SecubatClient.where(conditions_next).order("id ASC").first
   end
 
+  private
+  def secubat_client_params
+    params.require(:secubat_client).permit(:first_name, :last_name, :email, :phone, :entreprise, :description, :gender, :is_admin)
+  end
 end

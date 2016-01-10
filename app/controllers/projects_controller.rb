@@ -3,9 +3,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-
-
-    @projects = Project.all(:include => :todos).sort_by { |u| -u.todos.size }
+    @projects = Project.includes(:todos).sort_by { |u| -u.todos.size }
     @projects_tasks_total = {}
     @projects_tasks_not_started = {}
     @projects_tasks_done = {}

@@ -18,7 +18,7 @@
               %td{:style => "text-align:right; padding:0px 0px 15px 35px; width:230px;vertical-align:top;"}
                 %div{:style =>"font-size: 28px; line-height: 30px; color:#DD6600;"}
                   %b
-                    = "SECUBAT"
+                    =link_to "SECUBAT", "http://www.secubat.com", :target => :blank, :style => "text-decoration: none; color: #DD6600;"
                   %em{:style => "font-style: italic; font-size: 0px; line-height: 1px; color:#FFF;"}
                     ="Vous souhaite ses meilleurs vœux 2016!"
                   %br
@@ -52,21 +52,22 @@
                 %div{:style => "margin: 30px 0px;"}
                   - styledivlink = "margin-left:4px; float:left; color:#339; border: 1px solid #BBB; border-radius:5px; font-size: 8px; font-family:Arial; padding:2px; background-color:#EEE; width: 91px; text-align:center;"
                   - stylelink = "color:#339; text-decoration:none"
-                  %div{:style => styledivlink + " margin-left:0px;" }
-                    %b
-                      = "GARDE-CORPS"
-                  %div{:style => styledivlink}
-                    %b
-                      = "LIGNES DE VIE"
-                  %div{:style => styledivlink}
-                    %b
-                      = "ECHELLES"
-                  %div{:style => styledivlink}
-                    %b
-                      = "POINTS D'ANCRAGES"
-                  %div{:style => styledivlink}
-                    %b
-                      = "SUR MESURE"
+                  = link_to "http://www.secubat.com", :target => :blank do
+                    %div{:style => styledivlink + " margin-left:0px;" }
+                      %b
+                        = "GARDE-CORPS"
+                    %div{:style => styledivlink}
+                      %b
+                        = "LIGNES DE VIE"
+                    %div{:style => styledivlink}
+                      %b
+                        = "ECHELLES"
+                    %div{:style => styledivlink}
+                      %b
+                        = "POINTS D'ANCRAGES"
+                    %div{:style => styledivlink}
+                      %b
+                        = "SUR MESURE"
 
             %tr
               %td{:colspan => 2}

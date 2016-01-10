@@ -8,9 +8,9 @@ gem 'sqlite3'
 #gem 'haml', '>= 3.1.0.alpha.147'
 #gem 'haml-edge'
 #gem "haml-rails"
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.15'
 
-gem 'delayed_job', '2.1.4'
+gem 'delayed_job_active_record'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
   def index
     @count_urls = Url.count()
     if request.url.include?("secubat")

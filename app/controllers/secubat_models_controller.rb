@@ -15,7 +15,7 @@ class SecubatModelsController < ApplicationController
   def show
     @secubat_model = SecubatModel.find(params[:id])
 
-    @secubat_mailings = SecubatMailing.order("secubat_mailings.created_at DESC").all(:include => :secubat_model, :joins => :secubat_client, :conditions => {:secubat_model_id => @secubat_model})
+    @secubat_mailings = SecubatMailing.all.includes(:secubat_model).joins(:secubat_client).where(:secubat_model_id => @secubat_model).order("secubat_mailings.created_at DESC")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -42,7 +42,8 @@ class SecubatModelsController < ApplicationController
   # POST /secubat_models
   # POST /secubat_models.json
   def create
-    @secubat_model = SecubatModel.new(params[:secubat_model])
+
+    @secubat_model = SecubatModel.new(secubat_model_params)
 
     respond_to do |format|
       if @secubat_model.save
@@ -61,7 +62,7 @@ class SecubatModelsController < ApplicationController
     @secubat_model = SecubatModel.find(params[:id])
 
     respond_to do |format|
-      if @secubat_model.update_attributes(params[:secubat_model])
+      if @secubat_model.update(secubat_model_params)
         format.html { redirect_to @secubat_model, notice: 'Secubat model was successfully updated.' }
         format.json { head :ok }
       else
@@ -81,5 +82,10 @@ class SecubatModelsController < ApplicationController
       format.html { redirect_to secubat_models_url }
       format.json { head :ok }
     end
+  end
+
+  private
+  def  secubat_model_params
+    params.require(:secubat_model).permit(:subject, :body, :is_unique, :template, :is_activated)
   end
 end

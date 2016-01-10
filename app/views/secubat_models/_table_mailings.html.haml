@@ -29,7 +29,7 @@
           = secubat_mailing.sent_at.to_date
       %td
         - if !secubat_mailing.sent_at.nil? && secubat_mailing.status == "success"
-          = facebook_distance_of_time_in_words(secubat_mailing.sent_at)
+          = secubat_mailing.sent_at
       %td
         - case secubat_mailing.status
           - when "success" then
