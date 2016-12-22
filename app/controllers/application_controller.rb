@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def authenticate
     if Rails.env == 'production'
       authenticate_or_request_with_http_basic 'Dashboard Production' do |name, password|
-        name == 'beaudenon' && password == 'Pvvrr6hd'
+        name == 'beaudenon' && password == 'XXX'
       end
     end
   end 
